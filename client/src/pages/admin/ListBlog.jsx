@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { blog_data } from "../../assets/assets";
-import BlogTableItem from "../../components/admin/BlogtableItem";
 import { useAppContext } from "../../../context/AppContext";
 import toast from "react-hot-toast";
+import BlogTableItem from "../../components/admin/BlogTableItem";
 
 const ListBlog = () => {
   const { axios } = useAppContext();
