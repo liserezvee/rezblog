@@ -1,15 +1,17 @@
 import jwt from "jsonwebtoken";
 import Blog from "../models/Blog.js";
 import Comment from "../models/Comment.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const adminLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    if (email !== process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD) {
+    const { email, password } = req.body || {};
+    console.log(email, password);
+    if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
       return res.json({ success: false, message: "Invalid credentials" });
     }
-
+    console.log(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
     const token = jwt.sign({ email }, process.env.JWT_SECRET);
     res.json({ success: true, token });
   } catch (error) {
@@ -44,13 +46,13 @@ export const getDashboard = async (req, res) => {
     const comments = await Comment.countDocuments();
     const drafts = await Blog.countDocuments({ isPublished: false });
 
-    const dasboardData = {
+    const dashboardData = {
       blogs,
       comments,
       drafts,
       recentBlogs,
     };
-    res.json({ success: true, dasboardData });
+    res.json({ success: true, dashboardData });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
