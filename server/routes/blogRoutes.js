@@ -8,7 +8,7 @@ import {
   getBlogById,
   getBlogComment,
   togglePublish,
-} from "../controllers/BlogController.js";
+} from "../controllers/blogController.js";
 import upload from "../middleware/multer.js";
 import auth from "../middleware/auth.js";
 
